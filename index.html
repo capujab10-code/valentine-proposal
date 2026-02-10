@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Forever ❤️</title>
+  <title>Ajit & Puja ❤️</title>
   <style>
     body {
       margin: 0;
@@ -19,6 +19,7 @@
       top: 50%;
       transform: translateY(-50%);
       padding: 20px;
+      z-index: 2;
     }
 
     h1 {
@@ -50,8 +51,12 @@
       display: none;
     }
 
-    .heart {
+    .heart, .firework {
       position: absolute;
+      pointer-events: none;
+    }
+
+    .heart {
       color: rgba(255, 255, 255, 0.8);
       font-size: 20px;
       animation: floatUp 6s linear infinite;
@@ -67,25 +72,59 @@
         opacity: 0;
       }
     }
+
+    .firework {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: white;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      from {
+        transform: scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: scale(20);
+        opacity: 0;
+      }
+    }
+
+    #celebrationText {
+      font-size: 2.2em;
+      margin-top: 20px;
+      animation: pop 0.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes pop {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
   </style>
 </head>
 <body>
 
 <div class="container" id="intro">
   <h1>Happy Valentine’s Day Budu ❤️</h1>
-  <p>Every love story is beautiful… but ours is my favorite.</p>
+  <p>Every love story is beautiful. But ours is my favorite.</p>
   <button onclick="showProposal()">Click here 💖</button>
 </div>
 
 <div class="container hidden" id="proposal">
-  <h1>My Love 💍</h1>
+  <h1>Ajit ❤️ Puja</h1>
   <p>
-    From Sunrise to Sunset,<br>
-    From Dreams to Forever…<br><br>
-    I choose you. Always.
+    From sunrise to sunset,<br>
+    from dreams to forever…<br><br>
+    <strong>Puja chooses Ajit.</strong><br>
+    Today. Tomorrow. Always.
   </p>
-  <h1>Will you be my Valentine… forever? ❤️</h1>
-  <button onclick="sayYes()">YES 😭❤️</button>
+  <h1>Will you be my Valentine forever? 💍❤️</h1>
+  <button onclick="celebrate()">YES 😭❤️</button>
+  <div id="celebrationText" class="hidden">
+    Yayyyy, thank you for choosing me 💖
+  </div>
 </div>
 
 <script>
@@ -94,8 +133,11 @@
     document.getElementById("proposal").classList.remove("hidden");
   }
 
-  function sayYes() {
-    alert("He said YES!!! 💖💍 Lets go a date now.");
+  function celebrate() {
+    document.getElementById("celebrationText").classList.remove("hidden");
+    for (let i = 0; i < 25; i++) {
+      setTimeout(createFirework, i * 120);
+    }
   }
 
   function createHeart() {
@@ -106,9 +148,19 @@
     heart.style.animationDuration = (3 + Math.random() * 3) + "s";
     document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 6000);
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  function createFirework() {
+    const firework = document.createElement("div");
+    firework.className = "firework";
+    firework.style.left = Math.random() * 100 + "vw";
+    firework.style.top = Math.random() * 60 + "vh";
+    firework.style.background =
+      `hsl(${Math.random() * 360}, 100%, 70%)`;
+    document.body.appendChild(firework);
+
+    setTimeout(() => firework.remove(), 1000);
   }
 
   setInterval(createHeart, 300);
@@ -116,4 +168,3 @@
 
 </body>
 </html>
-
